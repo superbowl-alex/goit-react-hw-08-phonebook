@@ -1,28 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
-import GlobalStyles from 'GlobalStyles';
-import ContactForm from '../ContactForm';
-import Filter from '../Filter';
-import ContactList from '../ContactList';
-import { Container, WrapForms, FormTitle } from './App.styled';
+import { useAuth } from 'hooks';
+import { refreshUser } from 'redux/auth/operations';
+import Layout from '../Layout';
+
+const HomePage = lazy(() => import('../../pages/Home'));
+const RegisterPage = lazy(() => import('../../pages/Register'));
+const LoginPage = lazy(() => import('../../pages/Login'));
+const ContactsPage = lazy(() => import('../../pages/Contacts'));
 
 export default function App() {
   const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <Container>
-      <GlobalStyles />
-      <WrapForms>
-        <FormTitle>Phonebook</FormTitle>
-        <ContactForm />
-        <Filter />
-      </WrapForms>
-      <ContactList />
-    </Container>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 }

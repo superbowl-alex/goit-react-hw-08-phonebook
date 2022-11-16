@@ -2,7 +2,10 @@ import React from 'react';
 import ContactItem from '../ContactItem';
 import Notification from '../Notification';
 import { useSelector } from 'react-redux';
-import { selectVisibleContacts, selectPendingStatus } from 'redux/selectors';
+import {
+  selectVisibleContacts,
+  selectPendingStatus,
+} from 'redux/contacts/selectors';
 import { List, WrapList, ListTitle, Item } from './ContactList.styled';
 import Loader from 'components/Loader';
 
