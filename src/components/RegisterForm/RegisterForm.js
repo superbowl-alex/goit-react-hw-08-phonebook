@@ -32,12 +32,11 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    const { name, email, password } = values;
     dispatch(
       register({
-        name,
-        email,
-        password,
+        name: values.name.trim(),
+        email: values.email.trim(),
+        password: values.password.trim(),
       })
     );
     resetForm();
