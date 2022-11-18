@@ -20,7 +20,6 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
-  // contactsApi.middleware,
 ];
 
 // Persisting token field from auth slice to localstorage

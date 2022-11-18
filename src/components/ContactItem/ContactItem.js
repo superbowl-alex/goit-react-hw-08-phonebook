@@ -5,13 +5,13 @@ import { deleteContact } from 'redux/contacts/operations';
 import { ButtonClose } from './ContactItem.styled';
 import { FaWindowClose } from 'react-icons/fa';
 
-const ContactItem = ({ id, name, phone }) => {
+const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
   const handleDelete = () => dispatch(deleteContact(id));
 
   return (
     <>
-      {name}: {phone}
+      {name}: {number}
       <ButtonClose type="button" onClick={handleDelete}>
         <FaWindowClose size={32} />
       </ButtonClose>
@@ -22,7 +22,7 @@ const ContactItem = ({ id, name, phone }) => {
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
 };
 
 export default ContactItem;

@@ -7,12 +7,12 @@ let schema = yup.object().shape({
   name: yup
     .string()
     .min(3, 'Name must be at least 3 characters long!')
-    .max(16, 'Name must be less than 16 characters long')
+    .max(32, 'Name must be less than 32 characters long')
     .required('This field is required'),
   email: yup.string().email('Invalid email').required('This field is required'),
   password: yup
     .string()
-    .min(4, 'Password must be at least 4 characters long!')
+    .min(7, 'Password must be at least 7 characters long!')
     .max(16, 'Password must be less than 16 characters long!')
     .required('This field is required'),
 });

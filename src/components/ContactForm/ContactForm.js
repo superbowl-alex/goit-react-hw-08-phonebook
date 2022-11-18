@@ -65,7 +65,7 @@ const ContactForm = () => {
     };
 
     const { name } = values;
-    const normalizedName = name.toLowerCase();
+    const normalizedName = name.toLowerCase().trim();
 
     if (findContactByName(contacts, normalizedName)) {
       Notiflix.Notify.warning(`${name} is already in contacts`);

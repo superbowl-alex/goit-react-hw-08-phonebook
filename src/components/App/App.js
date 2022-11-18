@@ -7,10 +7,10 @@ import Layout from '../Layout';
 import RestrictedRoute from 'components/RestrictedRoute';
 import PrivateRoute from 'components/PrivateRoute';
 
-const HomePage = lazy(() => import('../../pages/Home/Home'));
-const RegisterPage = lazy(() => import('../../pages/Register/Register'));
-const LoginPage = lazy(() => import('../../pages/Login/Login'));
-const ContactsPage = lazy(() => import('../../pages/Contacts/Contacts'));
+const HomePage = lazy(() => import('../../pages/Home'));
+const RegisterPage = lazy(() => import('../../pages/Register'));
+const LoginPage = lazy(() => import('../../pages/Login'));
+const ContactsPage = lazy(() => import('../../pages/Contacts'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -29,13 +29,16 @@ export default function App() {
         <Route
           path="register"
           element={
-            <RestrictedRoute component={<RegisterPage />} redirectTo="/tasks" />
+            <RestrictedRoute
+              component={<RegisterPage />}
+              redirectTo="/contacts"
+            />
           }
         />
         <Route
           path="login"
           element={
-            <RestrictedRoute component={<LoginPage />} redirectTo="/tasks" />
+            <RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />
           }
         />
         <Route

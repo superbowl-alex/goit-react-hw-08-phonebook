@@ -20,9 +20,9 @@ const ContactList = () => {
         <Loader />
       ) : contacts.length > 0 ? (
         <List>
-          {contacts.map(({ id, name, phone }) => (
+          {contacts.map(({ id, name, number }) => (
             <Item key={id}>
-              <ContactItem id={id} name={name} phone={phone} />
+              <ContactItem id={id} name={name} number={number} />
             </Item>
           ))}
         </List>
