@@ -3,7 +3,6 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks';
 import { refreshUser } from 'redux/auth/operations';
-import { fetchContacts } from 'redux/contacts/operations';
 import Layout from '../Layout';
 import RestrictedRoute from 'components/RestrictedRoute';
 import PrivateRoute from 'components/PrivateRoute';
@@ -19,7 +18,6 @@ export default function App() {
 
   useEffect(() => {
     dispatch(refreshUser());
-    dispatch(fetchContacts());
   }, [dispatch]);
 
   return isRefreshing ? (
