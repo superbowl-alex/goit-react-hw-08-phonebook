@@ -39,6 +39,7 @@ const anySuccessReducer = state => {
 const anyPendingReducer = state => {
   state.isLoading = true;
 };
+
 const anyRejectReducer = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
