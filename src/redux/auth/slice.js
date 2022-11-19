@@ -32,7 +32,12 @@ const authRegisterOrLogInSuccessReducer = (state, action) => {
 };
 
 const authLogOutSuccessReducer = state => {
-  state = initialAuthState;
+  state.user = { name: null, email: null };
+  state.token = null;
+  state.isLoggedIn = false;
+  state.isRefreshing = false;
+  state.isLoading = false;
+  state.error = null;
 };
 
 const authRefreshPendingReducer = state => {
