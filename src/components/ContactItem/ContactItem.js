@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';
-import { ButtonClose } from './ContactItem.styled';
+// import { ButtonClose } from './ContactItem.styled';
 import { FaWindowClose } from 'react-icons/fa';
 
 const ContactItem = ({ id, name, number }) => {
@@ -12,9 +12,9 @@ const ContactItem = ({ id, name, number }) => {
   return (
     <>
       {name}: {number}
-      <ButtonClose type="button" onClick={handleDelete}>
+      <button type="button" onClick={handleDelete}>
         <FaWindowClose size={32} />
-      </ButtonClose>
+      </button>
     </>
   );
 };

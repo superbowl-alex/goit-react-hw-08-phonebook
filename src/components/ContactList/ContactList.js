@@ -1,4 +1,6 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import ContactItem from '../ContactItem';
 import Notification from '../Notification';
 import { useSelector } from 'react-redux';
@@ -6,7 +8,7 @@ import {
   selectVisibleContacts,
   selectPendingStatus,
 } from 'redux/contacts/selectors';
-import { List, WrapList, ListTitle, Item } from './ContactList.styled';
+// import { List, WrapList, ListTitle, Item } from './ContactList.styled';
 import Loader from 'components/Loader';
 
 const ContactList = () => {
@@ -14,22 +16,22 @@ const ContactList = () => {
   const pending = useSelector(selectPendingStatus);
 
   return (
-    <WrapList>
-      <ListTitle>Contacts</ListTitle>
+    <Box>
+      <Typography variant="h3">Contacts</Typography>
       {pending ? (
         <Loader />
       ) : contacts.length > 0 ? (
-        <List>
+        <ul>
           {contacts.map(({ id, name, number }) => (
-            <Item key={id}>
+            <li key={id}>
               <ContactItem id={id} name={name} number={number} />
-            </Item>
+            </li>
           ))}
-        </List>
+        </ul>
       ) : (
         <Notification message="There is no contact in Phonebook" />
       )}
-    </WrapList>
+    </Box>
   );
 };
 

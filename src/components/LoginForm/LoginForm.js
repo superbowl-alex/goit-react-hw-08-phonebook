@@ -1,66 +1,81 @@
 import { useDispatch } from 'react-redux';
-import { Formik, ErrorMessage, Form, Field } from 'formik';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { logIn } from 'redux/auth/operations';
 
 let schema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('This field is required'),
+  email: yup
+    .string('Enter your email')
+    .email('Enter a valid email')
+    .required('Email is required'),
   password: yup
-    .string()
-    .min(4, 'Password must be at least 4 characters long!')
-    .max(16, 'Password must be less than 16 characters long!')
-    .required('This field is required'),
+    .string('Enter your password')
+    .min(7, 'Password should be of minimum 7 characters length')
+    .required('Password is required'),
 });
-
-const FormError = ({ name }) => {
-  return (
-    <ErrorMessage
-      name={name}
-      render={message => {
-        return <div>{message}</div>;
-      }}
-    />
-  );
-};
 
 const LoginForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    const { email, password } = values;
     dispatch(
       logIn({
-        email,
-        password,
+        email: values.email.trim(),
+        password: values.password.trim(),
       })
     );
     resetForm();
   };
 
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: schema,
+    onSubmit: handleSubmit,
+  });
+
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={schema}
-      onSubmit={handleSubmit}
+    <Box
+      component="form"
+      onSubmit={formik.handleSubmit}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: 400,
+        '& > :not(style)': { m: 1.5 },
+      }}
     >
-      <Form>
-        <label>
-          Email
-          <div>
-            <Field type="email" name="email" autoComplete="off" />
-            <FormError name="email" />
-          </div>
-        </label>
-        <label>
-          Password
-          <div>
-            <Field type="password" name="password" autoComplete="off" />
-            <FormError name="password" />
-          </div>
-        </label>
-        <button type="submit">Log in</button>
-      </Form>
-    </Formik>
+      <TextField
+        id="email"
+        name="email"
+        label="Email"
+        autoComplete="off"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
+      />
+      <TextField
+        id="password"
+        name="password"
+        label="Password"
+        type="password"
+        autoComplete="off"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
+      />
+      <Button color="primary" variant="contained" type="submit">
+        Log in
+      </Button>
+    </Box>
   );
 };
 

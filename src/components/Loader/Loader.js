@@ -1,10 +1,10 @@
 import React from 'react';
 import PropagateLoader from 'react-spinners/PropagateLoader';
-import { WrapSpinner } from './Loader.styled';
+// import { WrapSpinner } from './Loader.styled';
 
 const Loader = () => {
   return (
-    <WrapSpinner>
+    <div>
       <PropagateLoader
         color={'rgb(205, 92, 92)'}
         size={15}
@@ -12,7 +12,7 @@ const Loader = () => {
         aria-label="Loading Spinner"
         data-testid="loader"
       />
-    </WrapSpinner>
+    </div>
   );
 };
 

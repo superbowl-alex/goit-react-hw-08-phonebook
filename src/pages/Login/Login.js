@@ -1,14 +1,15 @@
 import { Helmet } from 'react-helmet';
+import Box from '@mui/material/Box';
 import LoginForm from '../../components/LoginForm';
 
 const Login = () => {
   return (
-    <div>
+    <Box sx={{ width: '100%' }}>
       <Helmet>
         <title>Login</title>
       </Helmet>
       <LoginForm />
-    </div>
+    </Box>
   );
 };
 

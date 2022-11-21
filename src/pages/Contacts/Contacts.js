@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/contacts/operations';
@@ -18,11 +19,9 @@ const Contacts = () => {
       <Helmet>
         <title>Contacts</title>
       </Helmet>
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <Filter />
-      </div>
+      <Typography variant="h3">Phonebook</Typography>
+      <ContactForm />
+      <Filter />
       <ContactList />
     </main>
   );

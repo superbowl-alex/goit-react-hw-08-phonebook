@@ -1,15 +1,19 @@
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
-import AppBar from './AppBar';
+import Header from './Header';
 import { Suspense } from 'react';
 
 const Layout = () => {
   return (
-    <div>
-      <AppBar />
-      <Suspense fallback={null}>
-        <Outlet />
-      </Suspense>
-    </div>
+    <Container maxWidth="xl">
+      <Header />
+      <Box sx={{ width: '100%', mt: 9 }}>
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
+      </Box>
+    </Container>
   );
 };
 

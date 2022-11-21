@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { Alert } from './Notification.styled';
+import Typography from '@mui/material/Typography';
+// import { Alert } from './Notification.styled';
 
 const Notification = ({ message }) => {
-  return <Alert>{message} </Alert>;
+  return <Typography variant="h3">{message} </Typography>;
 };
 
 Notification.propTypes = {

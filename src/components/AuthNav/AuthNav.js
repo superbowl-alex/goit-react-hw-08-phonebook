@@ -1,11 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 const AuthNav = () => {
   return (
-    <div>
-      <NavLink to="/register">Register</NavLink>
-      <NavLink to="/login">Log In</NavLink>
-    </div>
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Button href="/goit-react-hw-08-phonebook/register" variant="contained">
+        Register
+      </Button>
+      <Button href="/goit-react-hw-08-phonebook/login" variant="contained">
+        Log In
+      </Button>
+    </Stack>
   );
 };
 

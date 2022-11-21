@@ -1,59 +1,39 @@
 import React from 'react';
-import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
-import {
-  FormAddContacts,
-  Label,
-  Input,
-  Thumb,
-  ErrorElement,
-  ButtonForm,
-} from './ContactForm.styled';
-import Notiflix from 'notiflix';
-
-Notiflix.Notify.init({
-  width: '500px',
-  position: 'center-top',
-  closeButton: true,
-  fontFamily: 'Comic Sans MS',
-  fontSize: '24px',
-  warning: {
-    background: 'rgb(255, 240, 245)',
-    textColor: 'rgb(40, 70, 219)',
-    notiflixIconColor: 'rgb(205, 92, 92)',
-  },
-});
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+// import {
+//   FormAddContacts,
+//   Label,
+//   Input,
+//   Thumb,
+//   ErrorElement,
+//   ButtonForm,
+// } from './ContactForm.styled';
 
 let schema = yup.object().shape({
   name: yup
-    .string()
+    .string('Enter contact name')
     .matches(
       /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/,
       'Name may contain only letters, apostrophe, dash and spaces without spaces at the beginning and end of the name'
     )
-    .required('This field is required'),
+    .required('Name is required'),
   number: yup
-    .string()
+    .string('Enter phone number')
     .matches(
       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
       'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
     )
-    .required('This field is required'),
+    .required('Phone number is required'),
 });
-
-const FormError = ({ name }) => {
-  return (
-    <ErrorMessage
-      name={name}
-      render={message => {
-        return <ErrorElement>{message}</ErrorElement>;
-      }}
-    />
-  );
-};
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -68,37 +48,62 @@ const ContactForm = () => {
     const normalizedName = name.toLowerCase().trim();
 
     if (findContactByName(contacts, normalizedName)) {
-      Notiflix.Notify.warning(`${name} is already in contacts`);
+      <Alert onClose={() => {}} severity="error">
+        <AlertTitle>Error</AlertTitle>
+        `${name} is already in contacts`
+      </Alert>;
       return;
     }
     dispatch(addContact(values));
     resetForm();
   };
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      number: '',
+    },
+    validationSchema: schema,
+    onSubmit: handleSubmit,
+  });
 
   return (
-    <Formik
-      initialValues={{ name: '', number: '' }}
-      validationSchema={schema}
-      onSubmit={handleSubmit}
+    <Box
+      component="form"
+      onSubmit={formik.handleSubmit}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: 400,
+        '& > :not(style)': { m: 1.5 },
+      }}
     >
-      <FormAddContacts>
-        <Label>
-          Name
-          <Thumb>
-            <Input type="text" name="name" autoComplete="off" />
-            <FormError name="name" />
-          </Thumb>
-        </Label>
-        <Label>
-          Number
-          <Thumb>
-            <Input type="tel" name="number" autoComplete="off" />
-            <FormError name="number" />
-          </Thumb>
-        </Label>
-        <ButtonForm type="submit">Add contact</ButtonForm>
-      </FormAddContacts>
-    </Formik>
+      <TextField
+        id="name"
+        name="name"
+        label="Name"
+        type="text"
+        autoComplete="off"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        error={formik.touched.name && Boolean(formik.errors.name)}
+        helperText={formik.touched.name && formik.errors.name}
+      />
+      <TextField
+        id="number"
+        name="number"
+        label="Number"
+        type="tel"
+        autoComplete="off"
+        value={formik.values.number}
+        onChange={formik.handleChange}
+        error={formik.touched.number && Boolean(formik.errors.number)}
+        helperText={formik.touched.number && formik.errors.number}
+      />
+      <Button color="primary" variant="contained" type="submit">
+        Add contact
+      </Button>
+    </Box>
   );
 };
 
