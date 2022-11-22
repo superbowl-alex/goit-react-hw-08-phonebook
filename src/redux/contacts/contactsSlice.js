@@ -10,6 +10,7 @@ const initialContactsState = {
   items: [],
   isLoading: false,
   error: null,
+  isDeleting: false,
 };
 
 const fetchContactsSuccessReducer = (state, action) => {
@@ -21,6 +22,7 @@ const addContactsSuccessReducer = (state, action) => {
 };
 
 const deleteContactsSuccessReducer = (state, action) => {
+  state.isDeleting = false;
   const index = state.items.findIndex(
     contact => contact.id === action.payload.id
   );
@@ -40,9 +42,17 @@ const anyPendingReducer = state => {
   state.isLoading = true;
 };
 
+const deletePendingReducer = state => {
+  state.isDeleting = true;
+};
+
 const anyRejectReducer = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
+};
+
+const deleteRejectReducer = state => {
+  state.isDeleting = false;
 };
 
 const contactsSlice = createSlice({
@@ -52,7 +62,9 @@ const contactsSlice = createSlice({
     builder
       .addCase(fetchContacts.fulfilled, fetchContactsSuccessReducer)
       .addCase(addContact.fulfilled, addContactsSuccessReducer)
+      .addCase(deleteContact.pending, deletePendingReducer)
       .addCase(deleteContact.fulfilled, deleteContactsSuccessReducer)
+      .addCase(deleteContact.rejected, deleteRejectReducer)
       .addCase(logOut.fulfilled, logOutSuccessReducer)
       .addMatcher(isAnyOf(...getActions('fulfilled')), anySuccessReducer)
       .addMatcher(isAnyOf(...getActions('pending')), anyPendingReducer)

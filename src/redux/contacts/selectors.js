@@ -8,6 +8,8 @@ export const selectError = state => state.contacts.error;
 
 export const selectFilter = state => state.filter;
 
+export const selectIsDeleting = state => state.contacts.isDeleting;
+
 export const selectVisibleContacts = createSelector(
   [selectFilter, selectContacts],
   (filter, contacts) => {
@@ -22,5 +24,12 @@ export const selectPendingStatus = createSelector(
   [selectIsLoading, selectError],
   (isLoading, error) => {
     return isLoading && !error;
+  }
+);
+
+export const selectPendingDeletingStatus = createSelector(
+  [selectIsDeleting, selectError],
+  (isDeleting, error) => {
+    return isDeleting && !error;
   }
 );

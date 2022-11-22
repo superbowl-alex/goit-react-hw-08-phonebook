@@ -1,21 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { deleteContact } from 'redux/contacts/operations';
 // import { ButtonClose } from './ContactItem.styled';
-import { FaWindowClose } from 'react-icons/fa';
+import LoadingButton from '@mui/lab/LoadingButton';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { useSelector } from 'react-redux';
+import { selectPendingDeletingStatus } from 'redux/contacts/selectors';
 
 const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(id));
+  const [deleteId, setDeleteId] = useState(null);
+  const handleDelete = () => {
+    setDeleteId(id);
+    dispatch(deleteContact(id));
+  };
+  const pendingDeleting = useSelector(selectPendingDeletingStatus);
+  const shouldSpinnerDeleting = deleteId && pendingDeleting;
 
   return (
-    <>
-      {name}: {number}
-      <button type="button" onClick={handleDelete}>
-        <FaWindowClose size={32} />
-      </button>
-    </>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: 300,
+      }}
+    >
+      <Typography>
+        {name}: {number}
+      </Typography>
+      <LoadingButton
+        size="small"
+        onClick={handleDelete}
+        endIcon={<HighlightOffIcon />}
+        loading={shouldSpinnerDeleting}
+        loadingPosition="end"
+        variant="contained"
+      >
+        Delete
+      </LoadingButton>
+    </Box>
   );
 };
 

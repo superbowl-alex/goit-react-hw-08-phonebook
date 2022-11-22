@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeFilter } from 'redux/contacts/filterSlice';
 import { selectFilter } from 'redux/contacts/selectors';
@@ -14,15 +15,14 @@ const Filter = () => {
   };
 
   return (
-    <label>
-      Find contacts by name
-      <input
-        type="text"
-        name="filter"
-        value={filter.value}
-        onChange={handleFilterChange}
-      ></input>
-    </label>
+    <TextField
+      label="Filter by name"
+      type="text"
+      autoComplete="off"
+      name="filter"
+      value={filter.value}
+      onChange={handleFilterChange}
+    />
   );
 };
 
