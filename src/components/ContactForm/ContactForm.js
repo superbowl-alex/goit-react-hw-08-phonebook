@@ -7,8 +7,6 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 // import {
 //   FormAddContacts,
 //   Label,
@@ -17,6 +15,20 @@ import AlertTitle from '@mui/material/AlertTitle';
 //   ErrorElement,
 //   ButtonForm,
 // } from './ContactForm.styled';
+import Notiflix from 'notiflix';
+
+Notiflix.Notify.init({
+  width: '500px',
+  position: 'center-top',
+  closeButton: true,
+  fontFamily: 'Comic Sans MS',
+  fontSize: '24px',
+  warning: {
+    background: 'rgb(255, 240, 245)',
+    textColor: 'rgb(40, 70, 219)',
+    notiflixIconColor: 'rgb(205, 92, 92)',
+  },
+});
 
 let schema = yup.object().shape({
   name: yup
@@ -48,10 +60,7 @@ const ContactForm = () => {
     const normalizedName = name.toLowerCase().trim();
 
     if (findContactByName(contacts, normalizedName)) {
-      <Alert onClose={() => {}} severity="error">
-        <AlertTitle>Error</AlertTitle>
-        `${name} is already in contacts`
-      </Alert>;
+      Notiflix.Notify.warning(`${name} is already in contacts`);
       return;
     }
     dispatch(addContact(values));
