@@ -1,6 +1,6 @@
+import { Link as RouterLink } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Link as RouterLink } from 'react-router-dom';
 
 const AuthNav = () => {
   return (
@@ -11,6 +11,8 @@ const AuthNav = () => {
         variant="contained"
         sx={{
           bgcolor: 'primary.light',
+          fontSize: 18,
+          fontWeight: 500,
           transition: 'transform 250ms ease-out',
           '&:hover': {
             background: 'primary.dark',
@@ -27,6 +29,8 @@ const AuthNav = () => {
         variant="contained"
         sx={{
           bgcolor: 'primary.light',
+          fontSize: 18,
+          fontWeight: 500,
           transition: 'transform 250ms ease-out',
           '&:hover': {
             background: 'primary.dark',

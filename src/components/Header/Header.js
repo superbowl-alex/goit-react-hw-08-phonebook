@@ -1,3 +1,4 @@
+import { useAuth } from 'hooks';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -6,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Navigation from './Navigation';
 import UserMenu from './UserMenu';
 import AuthNav from './AuthNav';
-import { useAuth } from 'hooks';
 import { ReactComponent as IconBook } from '../../images/IconBook.svg';
 
 const Header = () => {

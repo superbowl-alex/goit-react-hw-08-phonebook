@@ -13,6 +13,9 @@ export const theme = createTheme({
       dark: 'rgb(205, 92, 92)',
       contrastText: 'rgb(40, 70, 219)',
     },
+    accent: {
+      main: 'rgb(16, 16, 144)',
+    },
   },
   typography: {
     fontFamily: [

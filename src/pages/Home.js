@@ -14,11 +14,10 @@ const Home = () => {
           backgroundColor: 'primary.main',
           mx: 'auto',
           borderRadius: 2,
-          // border: 3,
           alignItems: 'center',
           p: 2,
           borderColor: 'primary.dark',
-          boxShadow: 3,
+          boxShadow: 5,
         }}
       >
         <Typography

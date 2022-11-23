@@ -1,14 +1,15 @@
 import React from 'react';
-import * as yup from 'yup';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
 import { toastOptions } from 'utils/toastOptions';
-import { toast } from 'react-toastify';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+
 let schema = yup.object().shape({
   name: yup
     .string('Enter contact name')
@@ -67,15 +68,21 @@ const ContactForm = () => {
       component="form"
       onSubmit={formik.handleSubmit}
       sx={{
+        width: 400,
+        backgroundColor: 'primary.main',
+        mx: 'auto',
+        borderRadius: 2,
+        p: 2,
+        boxShadow: 5,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: 400,
         '& > :not(style)': { m: 1.5 },
       }}
     >
       <TextField
         id="name"
+        color="accent"
         name="name"
         label="Name"
         type="text"
@@ -84,9 +91,16 @@ const ContactForm = () => {
         onChange={formik.handleChange}
         error={formik.touched.name && Boolean(formik.errors.name)}
         helperText={formik.touched.name && formik.errors.name}
+        sx={{
+          width: 300,
+          boxShadow: 2,
+          borderRadius: 1,
+          backgroundColor: 'primary.light',
+        }}
       />
       <TextField
         id="number"
+        color="accent"
         name="number"
         label="Number"
         type="tel"
@@ -95,8 +109,29 @@ const ContactForm = () => {
         onChange={formik.handleChange}
         error={formik.touched.number && Boolean(formik.errors.number)}
         helperText={formik.touched.number && formik.errors.number}
+        sx={{
+          width: 300,
+          boxShadow: 2,
+          borderRadius: 1,
+          backgroundColor: 'primary.light',
+        }}
       />
-      <Button color="primary" variant="contained" type="submit">
+      <Button
+        color="primary"
+        variant="contained"
+        type="submit"
+        sx={{
+          bgcolor: 'primary.light',
+          fontSize: 18,
+          fontWeight: 500,
+          transition: 'transform 250ms ease-out',
+          '&:hover': {
+            background: 'primary.dark',
+            color: '#fff',
+            transform: 'scale(1.1)',
+          },
+        }}
+      >
         Add contact
       </Button>
     </Box>
