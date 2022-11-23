@@ -7,29 +7,8 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
-// import {
-//   FormAddContacts,
-//   Label,
-//   Input,
-//   Thumb,
-//   ErrorElement,
-//   ButtonForm,
-// } from './ContactForm.styled';
-import Notiflix from 'notiflix';
-
-Notiflix.Notify.init({
-  width: '500px',
-  position: 'center-top',
-  closeButton: true,
-  fontFamily: 'Comic Sans MS',
-  fontSize: '24px',
-  warning: {
-    background: 'rgb(255, 240, 245)',
-    textColor: 'rgb(40, 70, 219)',
-    notiflixIconColor: 'rgb(205, 92, 92)',
-  },
-});
-
+import { toastOptions } from 'utils/toastOptions';
+import { toast } from 'react-toastify';
 let schema = yup.object().shape({
   name: yup
     .string('Enter contact name')
@@ -51,7 +30,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const findContactByName = (array, newName) => {
       return array.find(({ name }) => name.toLowerCase() === newName);
     };
@@ -60,11 +39,19 @@ const ContactForm = () => {
     const normalizedName = name.toLowerCase().trim();
 
     if (findContactByName(contacts, normalizedName)) {
-      Notiflix.Notify.warning(`${name} is already in contacts`);
+      toast.error(`${name} is already in contacts`, toastOptions);
       return;
     }
-    dispatch(addContact(values));
-    resetForm();
+    const { error } = await dispatch(addContact(values));
+    if (!error) {
+      resetForm();
+      toast.success(`New contact has been successfully added`, toastOptions);
+      return;
+    }
+    toast.error(
+      `An error has occurred, please check the information you entered.`,
+      toastOptions
+    );
   };
   const formik = useFormik({
     initialValues: {

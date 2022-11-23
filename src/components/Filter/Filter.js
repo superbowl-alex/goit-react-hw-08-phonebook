@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeFilter } from 'redux/contacts/filterSlice';
 import { selectFilter } from 'redux/contacts/selectors';
-// import { Label, Input } from './Filter.styled';
 
 const Filter = () => {
   const dispatch = useDispatch();

@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { logIn } from 'redux/auth/operations';
+import { toastOptions } from 'utils/toastOptions';
+import { toast } from 'react-toastify';
 
 let schema = yup.object().shape({
   email: yup
@@ -20,14 +22,22 @@ let schema = yup.object().shape({
 const LoginForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, { resetForm }) => {
-    dispatch(
+  const handleSubmit = async (values, { resetForm }) => {
+    const { error } = await dispatch(
       logIn({
         email: values.email.trim(),
         password: values.password.trim(),
       })
     );
-    resetForm();
+    if (!error) {
+      resetForm();
+      toast.success(`You have successfully Log In`, toastOptions);
+      return;
+    }
+    toast.error(
+      `An error has occurred, please check the information you entered.`,
+      toastOptions
+    );
   };
 
   const formik = useFormik({

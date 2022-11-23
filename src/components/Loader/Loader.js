@@ -1,6 +1,5 @@
 import React from 'react';
 import PropagateLoader from 'react-spinners/PropagateLoader';
-// import { WrapSpinner } from './Loader.styled';
 
 const Loader = () => {
   return (

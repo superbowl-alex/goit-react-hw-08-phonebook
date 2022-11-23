@@ -9,16 +9,26 @@ const getActions = type => actions.map(action => action[type]);
 const initialContactsState = {
   items: [],
   isLoading: false,
-  error: null,
   isDeleting: false,
+  error: null,
+};
+
+const fetchContactsPendingReducer = state => {
+  state.isLoading = true;
+};
+
+const deletePendingReducer = state => {
+  state.isDeleting = true;
 };
 
 const fetchContactsSuccessReducer = (state, action) => {
   state.items = action.payload;
+  state.isLoading = false;
 };
 
 const addContactsSuccessReducer = (state, action) => {
   state.items.push(action.payload);
+  state.isLoading = false;
 };
 
 const deleteContactsSuccessReducer = (state, action) => {
@@ -31,28 +41,17 @@ const deleteContactsSuccessReducer = (state, action) => {
 
 const logOutSuccessReducer = state => {
   state.items = [];
+  state.isLoading = false;
 };
 
 const anySuccessReducer = state => {
-  state.isLoading = false;
   state.error = null;
 };
 
-const anyPendingReducer = state => {
-  state.isLoading = true;
-};
-
-const deletePendingReducer = state => {
-  state.isDeleting = true;
-};
-
 const anyRejectReducer = (state, action) => {
-  state.isLoading = false;
   state.error = action.payload;
-};
-
-const deleteRejectReducer = state => {
   state.isDeleting = false;
+  state.isLoading = false;
 };
 
 const contactsSlice = createSlice({
@@ -64,10 +63,12 @@ const contactsSlice = createSlice({
       .addCase(addContact.fulfilled, addContactsSuccessReducer)
       .addCase(deleteContact.pending, deletePendingReducer)
       .addCase(deleteContact.fulfilled, deleteContactsSuccessReducer)
-      .addCase(deleteContact.rejected, deleteRejectReducer)
       .addCase(logOut.fulfilled, logOutSuccessReducer)
+      .addMatcher(
+        isAnyOf(fetchContacts.pending, addContact.pending, logOut.pending),
+        fetchContactsPendingReducer
+      )
       .addMatcher(isAnyOf(...getActions('fulfilled')), anySuccessReducer)
-      .addMatcher(isAnyOf(...getActions('pending')), anyPendingReducer)
       .addMatcher(isAnyOf(...getActions('rejected')), anyRejectReducer),
 });
 

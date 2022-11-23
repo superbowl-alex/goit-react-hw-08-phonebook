@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { register } from 'redux/auth/operations';
+import { toastOptions } from 'utils/toastOptions';
+import { toast } from 'react-toastify';
 
 let schema = yup.object().shape({
   name: yup
@@ -25,15 +27,23 @@ let schema = yup.object().shape({
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (values, { resetForm }) => {
-    dispatch(
+  const handleSubmit = async (values, { resetForm }) => {
+    const { error } = await dispatch(
       register({
         name: values.name.trim(),
         email: values.email.trim(),
         password: values.password.trim(),
       })
     );
-    resetForm();
+    if (!error) {
+      resetForm();
+      toast.success(`You have successfully registered`, toastOptions);
+      return;
+    }
+    toast.error(
+      `An error has occurred, please check the information you entered.`,
+      toastOptions
+    );
   };
 
   const formik = useFormik({
