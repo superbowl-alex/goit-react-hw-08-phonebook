@@ -38,9 +38,16 @@ const ContactList = () => {
       >
         Contacts
       </Typography>
-      {pending ? (
-        <Loader />
-      ) : contacts.length > 0 ? (
+      {pending && (
+        <Box
+          sx={{
+            mb: 4,
+          }}
+        >
+          <Loader />
+        </Box>
+      )}
+      {contacts.length > 0 ? (
         <Box
           component="ul"
           sx={{

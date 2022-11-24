@@ -17,7 +17,7 @@ const Layout = () => {
       }}
     >
       <Header />
-      <Box sx={{ width: '100%', mt: 3, pt: 15 }}>
+      <Box sx={{ width: '100%', pt: 17 }}>
         <Suspense fallback={<LinearProgress />}>
           <Outlet />
         </Suspense>

@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 const UserMenu = () => {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const firstLetter = user[0];
+  const firstLetter = user.name[0].toUpperCase();
 
   return (
     <Stack direction="row" spacing={2} alignItems="center">

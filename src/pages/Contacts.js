@@ -21,7 +21,12 @@ const Contacts = () => {
       <Helmet>
         <title>Contacts</title>
       </Helmet>
-      <Stack direction="row" spacing={5} sx={{ width: 1080, mx: 'auto' }}>
+      <Stack
+        direction="row"
+        alignItems="flex-start"
+        spacing={5}
+        sx={{ width: 1080, mx: 'auto' }}
+      >
         <Box
           sx={{
             width: 500,
@@ -37,7 +42,7 @@ const Contacts = () => {
         >
           <Box
             sx={{
-              mb: 2,
+              mb: 4,
             }}
           >
             <Typography

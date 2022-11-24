@@ -46,6 +46,10 @@ const ContactItem = ({ id, name, number }) => {
         color: 'primary.dark',
         borderRadius: 2,
         boxShadow: 2,
+        transition: 'transform 250ms ease-out',
+        '&:hover': {
+          transform: 'scale(1.02)',
+        },
       }}
     >
       <Typography>
