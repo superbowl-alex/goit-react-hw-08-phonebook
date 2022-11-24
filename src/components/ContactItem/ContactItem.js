@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { toastOptions } from 'utils/toastOptions';
 import { deleteContact } from 'redux/contacts/operations';
-import { useSelector } from 'react-redux';
 import { selectPendingDeletingStatus } from 'redux/contacts/selectors';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -13,9 +14,20 @@ const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
   const [deleteId, setDeleteId] = useState(null);
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     setDeleteId(id);
-    dispatch(deleteContact(id));
+    const { error } = await dispatch(deleteContact(id));
+    if (!error) {
+      toast.success(
+        `Сontact ${name} has been successfully deleted`,
+        toastOptions
+      );
+      return;
+    }
+    toast.error(
+      `An error has occurred, contact ${name} hasn't been deleted.`,
+      toastOptions
+    );
   };
 
   const pendingDeleting = useSelector(selectPendingDeletingStatus);
