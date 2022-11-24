@@ -101,22 +101,7 @@ const LoginForm = () => {
           backgroundColor: 'primary.light',
         }}
       />
-      <Button
-        color="primary"
-        variant="contained"
-        type="submit"
-        sx={{
-          bgcolor: 'primary.light',
-          fontSize: 18,
-          fontWeight: 500,
-          transition: 'transform 250ms ease-out',
-          '&:hover': {
-            background: 'primary.dark',
-            color: '#fff',
-            transform: 'scale(1.1)',
-          },
-        }}
-      >
+      <Button color="primary" variant="contained" type="submit">
         Log in
       </Button>
     </Box>

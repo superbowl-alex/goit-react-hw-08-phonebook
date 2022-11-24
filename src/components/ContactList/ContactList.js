@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ContactItem from '../ContactItem';
 import Notification from './Notification';
-import Loader from 'components/Loader';
+import Skeleton from '@mui/material/Skeleton';
 
 const ContactList = () => {
   const contacts = useSelector(selectVisibleContacts);
@@ -41,18 +41,30 @@ const ContactList = () => {
       {pending && (
         <Box
           sx={{
-            mb: 4,
+            mb: 1,
+            textAlign: 'center',
           }}
         >
-          <Loader />
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width={400}
+            height={40}
+            sx={{
+              bgcolor: 'primary.light',
+            }}
+          />
         </Box>
       )}
-      {contacts.length > 0 ? (
+      {!pending && contacts.length === 0 ? (
+        <Notification message="There is no contact in Phonebook" />
+      ) : (
         <Box
           component="ul"
           sx={{
             listStyle: 'none',
             m: 0,
+            p: 0,
             '& > :not(style)': { mb: 1.5 },
           }}
         >
@@ -62,8 +74,6 @@ const ContactList = () => {
             </Box>
           ))}
         </Box>
-      ) : (
-        <Notification message="There is no contact in Phonebook" />
       )}
     </Box>
   );

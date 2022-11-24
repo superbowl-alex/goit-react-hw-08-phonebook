@@ -5,40 +5,10 @@ import Stack from '@mui/material/Stack';
 const AuthNav = () => {
   return (
     <Stack direction="row" spacing={2} alignItems="center">
-      <Button
-        component={RouterLink}
-        to="/register"
-        variant="contained"
-        sx={{
-          bgcolor: 'primary.light',
-          fontSize: 18,
-          fontWeight: 500,
-          transition: 'transform 250ms ease-out',
-          '&:hover': {
-            background: 'primary.dark',
-            color: '#fff',
-            transform: 'scale(1.1)',
-          },
-        }}
-      >
+      <Button component={RouterLink} to="/register" variant="contained">
         Register
       </Button>
-      <Button
-        component={RouterLink}
-        to="/login"
-        variant="contained"
-        sx={{
-          bgcolor: 'primary.light',
-          fontSize: 18,
-          fontWeight: 500,
-          transition: 'transform 250ms ease-out',
-          '&:hover': {
-            background: 'primary.dark',
-            color: '#fff',
-            transform: 'scale(1.1)',
-          },
-        }}
-      >
+      <Button component={RouterLink} to="/login" variant="contained">
         Log In
       </Button>
     </Stack>

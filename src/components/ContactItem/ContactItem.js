@@ -63,11 +63,14 @@ const ContactItem = ({ id, name, number }) => {
         loadingPosition="end"
         variant="contained"
         sx={{
+          fontSize: 13,
+          fontWeight: 500,
           bgcolor: 'primary.light',
           transition: 'transform 250ms ease-out',
           '&:hover': {
             transform: 'scale(1.03)',
             bgcolor: 'primary.light',
+            color: 'primary.contrastText',
           },
         }}
       >
