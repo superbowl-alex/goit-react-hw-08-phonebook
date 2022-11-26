@@ -48,5 +48,21 @@ export const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          color: 'rgb(16, 16, 144)',
+          '&:hover, &:focus': {
+            color: 'rgb(16, 16, 144)',
+          },
+        },
+        input: {
+          color: 'rgb(16, 16, 144)',
+          '&:hover, &:focus': {
+            color: 'rgb(16, 16, 144)',
+          },
+        },
+      },
+    },
   },
 });
