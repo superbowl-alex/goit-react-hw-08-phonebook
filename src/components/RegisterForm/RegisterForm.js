@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 
 let schema = yup.object().shape({
   name: yup
-    .string('Enter your email')
+    .string('Enter your name')
     .min(3, 'Name must be at least 3 characters long!')
     .max(32, 'Name must be less than 32 characters long')
     .required('Name is required'),
